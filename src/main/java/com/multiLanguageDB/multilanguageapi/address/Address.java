@@ -21,7 +21,7 @@ public class Address {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "address_id", columnDefinition = "uuid")
+    @Column(name = "ADDRESS_ID", columnDefinition = "uuid")
     private UUID id;
 
     @Column(name="STREET", nullable = true)
