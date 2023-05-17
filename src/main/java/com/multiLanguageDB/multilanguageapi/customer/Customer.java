@@ -18,9 +18,9 @@ import java.util.UUID;
 public class Customer {
     @JsonProperty("_id")
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "CUSTOMER_ID", columnDefinition = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "CUSTOMER_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name="FIRSTNAME", nullable = false)
@@ -35,7 +35,7 @@ public class Customer {
     @Column(name="PASSWORD", nullable = false)
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
+    @OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "CART_ID")
     private String cart_id;
 }

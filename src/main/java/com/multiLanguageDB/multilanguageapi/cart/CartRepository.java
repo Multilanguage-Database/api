@@ -1,8 +1,10 @@
 package com.multiLanguageDB.multilanguageapi.cart;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-public interface CartRepository extends CrudRepository<Cart, UUID> {
+@Repository
+public interface CartRepository extends JpaRepository<Cart, UUID> {
 }

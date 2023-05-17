@@ -21,7 +21,6 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
@@ -34,5 +33,5 @@ tasks.named('test') {
 }
 
 bootRun {
-	jvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"]
+	jvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8081"]
 }

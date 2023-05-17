@@ -18,9 +18,9 @@ import java.util.UUID;
 public class PaymentMethod {
     @JsonProperty("_id")
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "PAYMENT_ID", columnDefinition = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "PAYMENT_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name ="NAME", nullable = false)

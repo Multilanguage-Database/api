@@ -1,6 +1,7 @@
 package com.multiLanguageDB.multilanguageapi.address;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.multiLanguageDB.multilanguageapi.customer.Customer;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,9 +20,9 @@ public class Address {
 
     @JsonProperty("_id")
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "ADDRESS_ID", columnDefinition = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "ADDRESS_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name="STREET", nullable = true)
@@ -39,7 +40,7 @@ public class Address {
     @Column(name = "country", nullable = true)
     private String country;
 
-    @OneToOne
-    @JoinColumn(name = "customer_id")
+    @OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "CUSTOMER_ID")
     private String customer_id;
 }

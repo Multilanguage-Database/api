@@ -18,9 +18,9 @@ import java.util.UUID;
 public class Product {
     @JsonProperty("_id")
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "PRODUCT_ID", columnDefinition = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "PRODUCT_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(name = "PRODUCT_TITLE", nullable = false)
@@ -33,5 +33,5 @@ public class Product {
     private int quantity;
 
     @Column(name = "PRODUCT_PRICE", nullable = false)
-    private double price;
+    private String price;
 }
