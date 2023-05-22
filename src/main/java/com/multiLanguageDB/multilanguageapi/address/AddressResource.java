@@ -1,7 +1,6 @@
-package com.multiLanguageDB.multilanguageapi.customer;
+package com.multiLanguageDB.multilanguageapi.address;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.multiLanguageDB.multilanguageapi.address.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -13,17 +12,17 @@ import java.util.UUID;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class CustomerResource {
+public class AddressResource {
     @JsonProperty(value = "_id")
     private final UUID id;
 
-    String firstName;
+    String street;
 
-    String lastName;
+    String house;
 
-    String email;
+    String zip;
 
-    String password;
+    String city;
 
-    Address address;
+    String country;
 }

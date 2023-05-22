@@ -1,6 +1,13 @@
 package com.multiLanguageDB.multilanguageapi.customer;
 
+import com.multiLanguageDB.multilanguageapi.address.Address;
+import com.multiLanguageDB.multilanguageapi.address.AddressResource;
+import com.multiLanguageDB.multilanguageapi.address.AddressResourceAssembler;
+import com.multiLanguageDB.multilanguageapi.address.AddressService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,17 +24,27 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    private final AddressService addressService;
+
+    private final AddressResourceAssembler addressResourceAssembler;
+
     private final CustomerResourceAssembler customerResourceAssembler;
 
     @PostMapping
-    public ResponseEntity<CustomerResource> createCustomer (@RequestBody CustomerRequest customerRequest) {
-        Customer customer = customerService.create(customerRequest.toCustomer());
+    public ResponseEntity<CustomerAddressResponse> createCustomer (@RequestBody CustomerAddressRequest customerAddressRequest) {
+        Customer customer = customerAddressRequest.toCustomer();
+        Address address = customerAddressRequest.toAddress();
+        customer.setAddress(address);
+        address.setCustomer(customer);
+        customerService.create(customer);
+        addressService.create(address);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .build(customer.getId());
 
-        return ResponseEntity.created(location).body(customerResourceAssembler.toResource(customer));
+        CustomerAddressResponse response = new CustomerAddressResponse(customerResourceAssembler.toResource(customer), addressResourceAssembler.toResource(address));
+        return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping(path = "/all")
@@ -59,10 +76,10 @@ public class CustomerController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<CustomerResource> updateCustomer(
             @PathVariable("id") Optional<Customer> customer,
-            @RequestBody CustomerRequest customerRequest
+            @RequestBody CustomerAddressRequest customerAddressRequest
     ) {
         return customer
-                .map(current -> current = customerRequest.toCustomer(customer.get().getId()))
+                .map(current -> current = customerAddressRequest.toCustomer(customer.get().getId()))
                 .map(customerService::update)
                 .map(customerResourceAssembler::toResource)
                 .map(ResponseEntity::ok)
@@ -77,4 +94,12 @@ public class CustomerController {
         }
         return ResponseEntity.notFound().build();
     }
+}
+
+@AllArgsConstructor
+@Getter
+@Setter
+class CustomerAddressResponse {
+    private CustomerResource customer;
+    private AddressResource address;
 }

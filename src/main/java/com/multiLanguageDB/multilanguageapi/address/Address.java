@@ -32,7 +32,7 @@ public class Address {
     private String house;
 
     @Column(name = "zip", nullable = true)
-    private int zip;
+    private String zip;
 
     @Column(name = "city", nullable = true)
     private String city;
@@ -40,7 +40,10 @@ public class Address {
     @Column(name = "country", nullable = true)
     private String country;
 
-    @OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CUSTOMER_ID")
-    private String customer_id;
+    @OneToOne
+    private Customer customer;
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

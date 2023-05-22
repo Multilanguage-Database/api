@@ -14,7 +14,6 @@ import java.util.UUID;
 @Transactional
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class CustomerService {
-    // TODO: Make Password secure -> see ChatGPT
     @NonNull
     private final CustomerRepository customerRepository;
 

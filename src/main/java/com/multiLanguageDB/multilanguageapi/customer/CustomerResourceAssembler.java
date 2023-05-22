@@ -1,5 +1,6 @@
 package com.multiLanguageDB.multilanguageapi.customer;
 
+import com.multiLanguageDB.multilanguageapi.address.AddressService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 public class CustomerResourceAssembler {
+
+    private final AddressService addressService;
 
     public CustomerResource toResource(Customer customer) {
         return CustomerResource.builder()
