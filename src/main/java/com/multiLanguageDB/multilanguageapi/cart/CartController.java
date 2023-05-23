@@ -75,6 +75,4 @@ public class CartController {
         }
         return ResponseEntity.notFound().build();
     }
-
-    //TODO: Product Cart Many to Many relationship
 }

@@ -1,12 +1,15 @@
 package com.multiLanguageDB.multilanguageapi.cart;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.multiLanguageDB.multilanguageapi.cartProduct.CartProduct;
 import com.multiLanguageDB.multilanguageapi.customer.Customer;
 import com.multiLanguageDB.multilanguageapi.paymentMethod.PaymentMethod;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -31,6 +34,9 @@ public class Cart {
 
     @OneToOne
     private Customer customer;
+
+    @OneToMany(mappedBy = "product")
+    private Set<CartProduct> products = new HashSet<CartProduct>();
 
     public void setCustomer(Customer customer) {
         this.customer = customer;

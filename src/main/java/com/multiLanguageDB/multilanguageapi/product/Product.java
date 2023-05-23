@@ -1,10 +1,13 @@
 package com.multiLanguageDB.multilanguageapi.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.multiLanguageDB.multilanguageapi.cartProduct.CartProduct;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,4 +37,7 @@ public class Product {
 
     @Column(name = "PRODUCT_PRICE", nullable = false)
     private String price;
+
+    @OneToMany(mappedBy = "cart")
+    private Set<CartProduct> cart = new HashSet<CartProduct>();
 }
