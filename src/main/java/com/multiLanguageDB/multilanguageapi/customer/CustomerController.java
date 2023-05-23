@@ -94,12 +94,13 @@ public class CustomerController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    private class CustomerAddressResponse {
+        private CustomerResource customer;
+        private AddressResource address;
+    }
 }
 
-@AllArgsConstructor
-@Getter
-@Setter
-class CustomerAddressResponse {
-    private CustomerResource customer;
-    private AddressResource address;
-}

@@ -1,10 +1,12 @@
 package com.multiLanguageDB.multilanguageapi.paymentMethod;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.multiLanguageDB.multilanguageapi.cart.Cart;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,4 +30,7 @@ public class PaymentMethod {
 
     @Column(name="PAYMENT_DESCRIPTION", nullable = false)
     private String description;
+
+    @OneToMany(targetEntity = Cart.class, mappedBy = "paymentMethod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cart> carts;
 }

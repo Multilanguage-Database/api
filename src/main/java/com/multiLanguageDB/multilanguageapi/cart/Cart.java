@@ -2,6 +2,7 @@ package com.multiLanguageDB.multilanguageapi.cart;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.customer.Customer;
+import com.multiLanguageDB.multilanguageapi.paymentMethod.PaymentMethod;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -24,7 +25,18 @@ public class Cart {
     @Column(name = "CART_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "PAYMENT_ID")
-    private String payment_id;
+    private PaymentMethod paymentMethod;
+
+    @OneToOne
+    private Customer customer;
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 }

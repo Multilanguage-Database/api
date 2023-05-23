@@ -2,6 +2,7 @@ package com.multiLanguageDB.multilanguageapi.customer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.address.Address;
+import com.multiLanguageDB.multilanguageapi.cart.Cart;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -30,7 +31,7 @@ public class Customer {
     @Column(name="LASTNAME", nullable = false)
     private String lastName;
 
-    @Column(name="EMAIL", nullable = false, unique = true)
+    @Column(name="EMAIL", nullable = false)
     private String email;
 
     @Column(name="PASSWORD", nullable = false)
@@ -39,9 +40,8 @@ public class Customer {
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Address address;
 
-    @OneToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "CART_ID")
-    private String cart_id;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Cart cart;
 
     public void setAddress(Address address) {
         if(address == null) {
@@ -52,5 +52,9 @@ public class Customer {
             address.setCustomer(this);
         }
         this.address = address;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }
