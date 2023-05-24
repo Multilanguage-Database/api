@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="Cart_Product")
+@IdClass(CartProductId.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,23 +18,24 @@ import java.io.Serializable;
 @Builder
 public class CartProduct implements Serializable {
 
-    @EmbeddedId
-    private CartProductPK id;
-
+    @Id
     @ManyToOne
-    @MapsId("cart_id")
     @JoinColumn(name = "CART_ID")
     private Cart cart;
 
+    @Id
     @ManyToOne
-    @MapsId("product_id")
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
     @Column(name = "quantity")
     private int quantity;
 
-    public void setCartProductPK(CartProductPK cartProductPK) {
-        this.id = cartProductPK;
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

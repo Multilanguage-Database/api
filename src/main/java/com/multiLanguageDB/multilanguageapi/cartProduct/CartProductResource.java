@@ -13,8 +13,6 @@ import lombok.Getter;
 @Builder
 public class CartProductResource {
 
-    CartProductPK cartProductPK;
-
     Cart cart;
 
     Product product;

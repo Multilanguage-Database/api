@@ -8,8 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,8 +34,8 @@ public class Cart {
     @OneToOne
     private Customer customer;
 
-    @OneToMany(mappedBy = "cart")
-    private Set<CartProduct> products = new HashSet<CartProduct>();
+    @OneToMany(targetEntity = CartProduct.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CartProduct> productsAssoc;
 
     public void setCustomer(Customer customer) {
         this.customer = customer;

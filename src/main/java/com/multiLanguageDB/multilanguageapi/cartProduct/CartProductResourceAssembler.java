@@ -19,7 +19,8 @@ public class CartProductResourceAssembler {
 
     public CartProductResource toResource(CartProduct cartProduct) {
         return CartProductResource.builder()
-                .cartProductPK(cartProduct.getId())
+                .cart(cartProduct.getCart())
+                .product(cartProduct.getProduct())
                 .quantity(cartProduct.getQuantity())
                 .build();
     }

@@ -28,16 +28,15 @@ public class CartProductController {
 
     @PostMapping
     public ResponseEntity<CartProductResource> createCartProduct(@RequestBody CartProductRequest cartProductRequest) {
-
         CartProduct cartProduct = cartProductRequest.toCartProduct();
 
-        CartProductPK cartProductPK = new CartProductPK(cartProduct.getCart().getId(), cartProduct.getProduct().getId());
-        cartProduct.setCartProductPK(cartProductPK);
+        if(cartService.findByIdOptional(cartProduct.getCart().getId()).isPresent()) {
+            cartProductService.create(cartProduct);
+        }
 
-        cartProductService.create(cartProduct);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .build(cartProduct.getId());
+                .build(cartProduct);
 
         return ResponseEntity.created(location).body(cartProductResourceAssembler.toResource(cartProduct));
     }
