@@ -38,6 +38,6 @@ public class Product {
     @Column(name = "PRODUCT_PRICE", nullable = false)
     private String price;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "product")
     private Set<CartProduct> cart = new HashSet<CartProduct>();
 }

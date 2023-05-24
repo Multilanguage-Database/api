@@ -29,8 +29,12 @@ public class CartProductController {
     @PostMapping
     public ResponseEntity<CartProductResource> createCartProduct(@RequestBody CartProductRequest cartProductRequest) {
 
-        CartProduct cartProduct = cartProductService.create(cartProductRequest.toCartProduct());
+        CartProduct cartProduct = cartProductRequest.toCartProduct();
 
+        CartProductPK cartProductPK = new CartProductPK(cartProduct.getCart().getId(), cartProduct.getProduct().getId());
+        cartProduct.setCartProductPK(cartProductPK);
+
+        cartProductService.create(cartProduct);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .build(cartProduct.getId());

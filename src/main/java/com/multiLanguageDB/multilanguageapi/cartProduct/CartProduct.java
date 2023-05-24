@@ -32,4 +32,8 @@ public class CartProduct implements Serializable {
 
     @Column(name = "quantity")
     private int quantity;
+
+    public void setCartProductPK(CartProductPK cartProductPK) {
+        this.id = cartProductPK;
+    }
 }

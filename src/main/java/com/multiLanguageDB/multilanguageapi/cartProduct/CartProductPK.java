@@ -1,7 +1,6 @@
 package com.multiLanguageDB.multilanguageapi.cartProduct;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -11,6 +10,9 @@ import java.util.UUID;
 @Embeddable
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class CartProductPK implements Serializable {
     @Column(name = "CART_ID")
     private UUID cart_id;

@@ -35,7 +35,7 @@ public class Cart {
     @OneToOne
     private Customer customer;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "cart")
     private Set<CartProduct> products = new HashSet<CartProduct>();
 
     public void setCustomer(Customer customer) {
