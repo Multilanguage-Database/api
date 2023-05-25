@@ -5,10 +5,13 @@ import com.multiLanguageDB.multilanguageapi.cartProduct.CartProduct;
 import com.multiLanguageDB.multilanguageapi.customer.Customer;
 import com.multiLanguageDB.multilanguageapi.paymentMethod.PaymentMethod;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +20,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @Builder
 public class Cart {
     @JsonProperty("_id")
@@ -35,7 +37,8 @@ public class Cart {
     private Customer customer;
 
     @OneToMany(targetEntity = CartProduct.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CartProduct> productsAssoc;
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<CartProduct> productsAssoc;
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
@@ -43,5 +46,18 @@ public class Cart {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return id.equals(cart.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
