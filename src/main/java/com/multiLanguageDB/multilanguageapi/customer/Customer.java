@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "Customer")
 @Table(name="Customer")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +31,7 @@ public class Customer {
     @Column(name="LASTNAME", nullable = false)
     private String lastName;
 
-    @Column(name="EMAIL", nullable = false)
+    @Column(name="EMAIL", nullable = false, unique = true)
     private String email;
 
     @Column(name="PASSWORD", nullable = false)
@@ -55,6 +55,13 @@ public class Customer {
     }
 
     public void setCart(Cart cart) {
+        if(cart == null) {
+            if (this.cart !=null) {
+                this.cart.setCustomer(null);
+            }
+        } else {
+            cart.setCustomer(this);
+        }
         this.cart = cart;
     }
 

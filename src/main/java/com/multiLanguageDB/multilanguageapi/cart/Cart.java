@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "Cart")
 @Table(name="Cart")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,7 +33,8 @@ public class Cart {
     @JoinColumn(name = "PAYMENT_ID")
     private PaymentMethod paymentMethod;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany(targetEntity = CartProduct.class, mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

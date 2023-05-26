@@ -33,6 +33,10 @@ public class CustomerService {
         return customerRepository.findByEmailAndPassword(email, password);
     }
 
+    public Optional<Customer>findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
     public Customer update(Customer entity) {
         return customerRepository.saveAndFlush(entity);
     }

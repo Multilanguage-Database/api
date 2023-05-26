@@ -72,7 +72,15 @@ public class CustomerController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //TODO: Frontend -> User will have to reenter password on change
+    @GetMapping(path = "/email")
+    public ResponseEntity<CustomerResource> getCustomer(@RequestParam("email") String email) {
+
+        return customerService.findByEmail(email)
+                .map(customerResourceAssembler::toResource)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping(path = "/{id}")
     public ResponseEntity<CustomerResource> updateCustomer(
             @PathVariable("id") Optional<Customer> customer,

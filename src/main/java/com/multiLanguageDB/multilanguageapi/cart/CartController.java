@@ -1,6 +1,7 @@
 package com.multiLanguageDB.multilanguageapi.cart;
 
 import com.multiLanguageDB.multilanguageapi.customer.Customer;
+import com.multiLanguageDB.multilanguageapi.customer.CustomerCartRequest;
 import com.multiLanguageDB.multilanguageapi.customer.CustomerService;
 import com.multiLanguageDB.multilanguageapi.paymentMethod.PaymentMethod;
 import com.multiLanguageDB.multilanguageapi.paymentMethod.PaymentMethodService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +30,13 @@ public class CartController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<CartResource> createCart(@RequestBody(required = false) Customer customer) {
+    @Transactional
+    public ResponseEntity<CartResource> createCart(@RequestBody CustomerCartRequest customer_id) {
+        Optional<Customer> customer = customerService.findByIdOptional(customer_id.getId());
         Cart cart = cartService.create(new Cart());
 
-        cart.setCustomer(customer);
-        customer.setCart(cart);
-        customerService.update(customer);
-        cartService.update(cart);
+        customerService.update(customer.get());
+        customer.get().setCart(cart);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id")
