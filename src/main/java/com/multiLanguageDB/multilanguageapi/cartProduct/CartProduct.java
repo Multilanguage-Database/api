@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name="Cart_Product")
-@IdClass(CartProductId.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

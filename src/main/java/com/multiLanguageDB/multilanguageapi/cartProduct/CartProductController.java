@@ -1,5 +1,6 @@
 package com.multiLanguageDB.multilanguageapi.cartProduct;
 
+import com.multiLanguageDB.multilanguageapi.cart.Cart;
 import com.multiLanguageDB.multilanguageapi.cart.CartService;
 import com.multiLanguageDB.multilanguageapi.product.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -43,32 +44,57 @@ public class CartProductController {
 
     @GetMapping
     public ResponseEntity<List<CartProductResource>> getCartProducts() {
-        return ResponseEntity.ok(cartProductResourceAssembler.toListResource(cartProductService.findAll()));
+        List<CartProduct> cartProducts = cartProductService.findAll();
+        return ResponseEntity.ok(cartProductResourceAssembler.toListResource(cartProducts));
     }
 
     @GetMapping(path = "/{cartId}")
-    public ResponseEntity<List<Optional<CartProductResource>>> getCartProductsByCart(@PathVariable("cartId")UUID id) {
-        List<Optional<CartProduct>> cartProducts = cartProductService.findByCartId(id);
+    public ResponseEntity<List<CartProductResource>> getCartProductsByCart(@PathVariable("cartId")UUID id) {
+        Optional<Cart> cart = cartService.findByIdOptional(id);
 
-        List<ResponseEntity<Optional<CartProductResource>>> responseEntities = cartProducts
+        List<CartProductResource> cartProducts = cart.get().getProductsAssoc()
                 .stream()
                 .map(cartProductResourceAssembler::toResource)
-                .map(ResponseEntity::ok)
                 .collect(Collectors.toList());
 
-        List<Optional<CartProductResource>> cartProductResources = responseEntities
-                .stream()
-                .map(ResponseEntity::getBody)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(cartProductResources);
+        return ResponseEntity.ok(cartProducts);
     }
 
-    /*
+    @PutMapping(path = "/{cartId}/{productId}/{quantity}")
+    public ResponseEntity<CartProductResource> updateQuantity(@PathVariable("cartId") UUID cartId,
+                                                              @PathVariable("productId") UUID productId,
+                                                              @PathVariable("quantity") int quantity) {
+        List<Optional<CartProduct>> cartProducts = cartProductService.findByCartId(cartId);
 
-    @PutMapping(path = "/cart/{cartId}/{productId}")
+        Optional<CartProduct> cartProduct = cartProducts
+                .stream()
+                .filter(cp -> cp.get().getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
 
-    @DeleteMapping{path = "/{productId}"}
+        if(cartProduct.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        cartProduct.get().setQuantity(quantity);
+        return ResponseEntity.ok(cartProductResourceAssembler.toResource(cartProductService.update(cartProduct.get())));
+    }
 
-     */
+    @DeleteMapping(path = "/{cartId}/{productId}")
+    public ResponseEntity<Void>  deleteProduct(@PathVariable("cartId")UUID cartId,
+                                               @PathVariable("productId")UUID productId) {
+        List<Optional<CartProduct>> cartProducts = cartProductService.findByCartId(cartId);
+
+        Optional<CartProduct> cartProduct = cartProducts
+                .stream()
+                .filter(cp -> cp.get().getProduct().getId().equals(productId))
+                .findFirst()
+                .orElse(null);
+
+        if(cartProduct.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        cartProductService.delete(cartProduct.get());
+        return ResponseEntity.noContent().build();
+    }
+
 }

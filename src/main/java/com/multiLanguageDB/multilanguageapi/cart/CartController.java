@@ -31,8 +31,8 @@ public class CartController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CartResource> createCart(@RequestBody CustomerCartRequest customer_id) {
-        Optional<Customer> customer = customerService.findByIdOptional(customer_id.getId());
+    public ResponseEntity<CartResource> createCart(@RequestBody CustomerCartRequest customerEmail) {
+        Optional<Customer> customer = customerService.findByEmail(customerEmail.getEmail());
         Cart cart = cartService.create(new Cart());
 
         customerService.update(customer.get());

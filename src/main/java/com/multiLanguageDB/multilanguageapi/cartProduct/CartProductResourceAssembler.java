@@ -17,10 +17,13 @@ public class CartProductResourceAssembler {
         return cartProduct.map(this::toResource);
     }
 
+    //have to retrieve list of products -> not return a CartProduct but return a Cart
     public CartProductResource toResource(CartProduct cartProduct) {
         return CartProductResource.builder()
-                .cart(cartProduct.getCart())
-                .product(cartProduct.getProduct())
+                .id(cartProduct.getId())
+                .cart(cartProduct.getCart().getId())
+                .product(cartProduct.getProduct().getId())
+                .product_title(cartProduct.getProduct().getTitle())
                 .quantity(cartProduct.getQuantity())
                 .build();
     }

@@ -30,6 +30,10 @@ public class CartProductService {
         return cartProductRepository.findByCartId(id);
     }
 
+    public Optional<CartProduct> findByProductAndCartId(UUID cartId, UUID productId) {
+        return cartProductRepository.findByProductAndCartId(cartId, productId);
+    }
+
     public CartProduct update(CartProduct entity) {
         return cartProductRepository.saveAndFlush(entity);
     }
