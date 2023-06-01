@@ -23,5 +23,7 @@ public class CartProductResource {
 
     String product_title;
 
+    String product_price;
+
     int quantity;
 }

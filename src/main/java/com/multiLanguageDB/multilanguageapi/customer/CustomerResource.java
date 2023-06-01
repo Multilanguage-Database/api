@@ -26,4 +26,6 @@ public class CustomerResource {
     String password;
 
     Address address;
+
+    UUID cartId;
 }
