@@ -2,6 +2,7 @@ package com.multiLanguageDB.multilanguageapi.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.cartProduct.CartProduct;
+import com.multiLanguageDB.multilanguageapi.productTranslation.ProductTranslation;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -42,6 +43,10 @@ public class Product {
     @OneToMany(targetEntity = CartProduct.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     private Set<CartProduct> cartAssoc;
+
+    @OneToMany(targetEntity = ProductTranslation.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<ProductTranslation> productTranslationsAssoc;
 
     @Override
     public boolean equals(Object o) {

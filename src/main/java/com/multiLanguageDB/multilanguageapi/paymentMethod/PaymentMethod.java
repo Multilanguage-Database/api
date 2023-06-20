@@ -2,16 +2,20 @@ package com.multiLanguageDB.multilanguageapi.paymentMethod;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.cart.Cart;
+import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.PaymentMethodTranslation;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="PaymentMethod")
+@Table(name="Payment_Method")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -33,6 +37,10 @@ public class PaymentMethod {
 
     @OneToMany(targetEntity = Cart.class, mappedBy = "paymentMethod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cart> carts;
+
+    @OneToMany(targetEntity = PaymentMethodTranslation.class, mappedBy = "paymentMethod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<PaymentMethodTranslation> paymentMethodTranslationsAssoc;
 
     @Override
     public boolean equals(Object o) {
