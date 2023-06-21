@@ -70,7 +70,7 @@ public class PaymentMethodTranslationController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> deletePaymentMethod(@PathVariable("id") Optional<PaymentMethodTranslation> paymentMethodTranslation) {
+    public ResponseEntity<Void> deletePaymentMethodTranslation(@PathVariable("id") Optional<PaymentMethodTranslation> paymentMethodTranslation) {
         if(paymentMethodTranslation.isPresent()) {
             paymentMethodTranslationService.delete(paymentMethodTranslation.get());
             return ResponseEntity.noContent().build();

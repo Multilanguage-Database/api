@@ -29,7 +29,6 @@ public class PaymentMethodTranslation {
     @Column(name = "NAME_TRANSLATION", nullable = false)
     private String name;
 
-
     @Column(name = "DESCRIPTION_TRANSLATION", nullable = true)
     private String description;
 
