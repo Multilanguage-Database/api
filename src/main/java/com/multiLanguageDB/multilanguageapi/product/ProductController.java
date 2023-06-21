@@ -24,7 +24,7 @@ public class ProductController {
         Product product = productService.create(productRequest.toProduct());
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id")
+                .path("/{id}")
                 .build(product.getId());
 
         return ResponseEntity.created(location).body(productResourceAssembler.toResource(product));
