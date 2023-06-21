@@ -15,6 +15,7 @@ public class PaymentMethodTranslationResourceAssembler {
     public PaymentMethodTranslationResource toResource(PaymentMethodTranslation paymentMethodTranslation) {
         return PaymentMethodTranslationResource.builder()
                 .id(paymentMethodTranslation.getId())
+                .paymentMethod(paymentMethodTranslation.getPaymentMethod().getId())
                 .locale(paymentMethodTranslation.getLocale().getId())
                 .name(paymentMethodTranslation.getName())
                 .description(paymentMethodTranslation.getDescription())

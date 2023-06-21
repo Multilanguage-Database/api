@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -22,6 +24,14 @@ public class PaymentMethodTranslationService {
 
     public List<PaymentMethodTranslation> findAll() {
         return paymentMethodTranslationRepository.findAll();
+    }
+
+    public Optional<List<PaymentMethodTranslation>> findAllByLocale(String id) {
+        return paymentMethodTranslationRepository.findAllByLocale(id);
+    }
+
+    public Optional<PaymentMethodTranslation> findByIdAndLocale(UUID id, String locale) {
+        return paymentMethodTranslationRepository.findByIdAndLocale(id, locale);
     }
 
     public PaymentMethodTranslation update(PaymentMethodTranslation entity) {

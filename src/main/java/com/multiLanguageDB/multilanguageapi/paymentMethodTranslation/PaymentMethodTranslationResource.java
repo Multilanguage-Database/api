@@ -16,6 +16,8 @@ public class PaymentMethodTranslationResource {
     @JsonProperty(value = "_id")
     private final UUID id;
 
+    UUID paymentMethod;
+
     String locale;
 
     String name;
