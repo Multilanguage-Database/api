@@ -16,6 +16,6 @@ public interface PaymentMethodTranslationRepository extends JpaRepository<Paymen
     @Query("SELECT pm FROM PaymentMethodTranslation pm WHERE pm.locale.id = :locale")
     Optional<List<PaymentMethodTranslation>> findAllByLocale(@Param("locale") String locale);
 
-    @Query("SELECT pm FROM PaymentMethodTranslation pm WHERE pm.paymentMethod.id = :id AND pm.locale.id = :locale")
-    Optional<PaymentMethodTranslation> findByIdAndLocale(@Param("id") UUID id, @Param("locale") String locale);
+    @Query("SELECT pm FROM PaymentMethodTranslation pm WHERE pm.paymentMethod.id = :payment_id AND pm.locale.id = :locale")
+    Optional<PaymentMethodTranslation> findByIdAndLocale(@Param("payment_id") UUID id, @Param("locale") String locale);
 }

@@ -74,7 +74,7 @@ public class PaymentMethodController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}/{locale}")
     public ResponseEntity<PaymentMethodResource> updatePaymentMethod(
             @PathVariable("id") Optional<PaymentMethod> paymentMethod,
             @RequestBody PaymentMethodRequest paymentMethodRequest
