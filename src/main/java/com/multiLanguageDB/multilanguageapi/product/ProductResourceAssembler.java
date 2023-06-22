@@ -15,8 +15,6 @@ public class ProductResourceAssembler {
     public ProductResource toResource(Product product) {
         return ProductResource.builder()
                 .id(product.getId())
-                .title(product.getTitle())
-                .description(product.getDescription())
                 .quantity(product.getQuantity())
                 .price(product.getPrice())
                 .build();

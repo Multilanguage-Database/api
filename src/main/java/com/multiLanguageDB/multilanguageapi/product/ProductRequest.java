@@ -1,5 +1,7 @@
 package com.multiLanguageDB.multilanguageapi.product;
 
+import com.multiLanguageDB.multilanguageapi.locale.Locale;
+import com.multiLanguageDB.multilanguageapi.productTranslation.ProductTranslation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -11,6 +13,8 @@ import java.util.UUID;
 @Setter
 public class ProductRequest {
 
+    Locale locale;
+
     String title;
 
     String description;
@@ -21,8 +25,6 @@ public class ProductRequest {
 
     public Product toProduct () {
         return Product.builder()
-                .title(title)
-                .description(description)
                 .quantity(quantity)
                 .price(price)
                 .build();
@@ -31,10 +33,16 @@ public class ProductRequest {
     public Product toProduct (UUID id) {
         return Product.builder()
                 .id(id)
-                .title(title)
-                .description(description)
                 .quantity(quantity)
                 .price(price)
+                .build();
+    }
+
+    public ProductTranslation toProductTranslation() {
+        return ProductTranslation.builder()
+                .locale(locale)
+                .title(title)
+                .description(description)
                 .build();
     }
 }

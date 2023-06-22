@@ -23,8 +23,6 @@ public class CartProductResourceAssembler {
                 .id(cartProduct.getId())
                 .cart(cartProduct.getCart().getId())
                 .product(cartProduct.getProduct().getId())
-                .product_title(cartProduct.getProduct().getTitle())
-                .product_price(cartProduct.getProduct().getPrice())
                 .quantity(cartProduct.getQuantity())
                 .build();
     }

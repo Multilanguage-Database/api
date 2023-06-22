@@ -2,6 +2,7 @@ package com.multiLanguageDB.multilanguageapi.product;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.cartProduct.CartProduct;
+import com.multiLanguageDB.multilanguageapi.productTranslation.ProductTranslation;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,17 +28,15 @@ public class Product {
     @Column(name = "PRODUCT_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "PRODUCT_TITLE", nullable = false)
-    private String title;
-
-    @Column(name = "PRODUCT_DESCRIPTION", nullable = true)
-    private String description;
-
     @Column(name = "PRODUCT_QUANTITY", nullable = false)
     private int quantity;
 
     @Column(name = "PRODUCT_PRICE", nullable = false)
     private String price;
+
+    @OneToMany(targetEntity = ProductTranslation.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    private Set<ProductTranslation> productTranslationAssoc;
 
     @OneToMany(targetEntity = CartProduct.class, mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)

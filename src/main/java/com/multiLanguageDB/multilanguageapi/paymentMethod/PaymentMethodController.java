@@ -1,10 +1,10 @@
 package com.multiLanguageDB.multilanguageapi.paymentMethod;
 
-import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.PaymentMethodTranslation;
+import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.PaymentMethodTranslationResource;
+import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.PaymentMethodTranslationResourceAssembler;
+import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.PaymentMethodTranslationService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -74,7 +74,7 @@ public class PaymentMethodController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping(path = "/{id}/{locale}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<PaymentMethodResource> updatePaymentMethod(
             @PathVariable("id") Optional<PaymentMethod> paymentMethod,
             @RequestBody PaymentMethodRequest paymentMethodRequest
@@ -94,14 +94,5 @@ public class PaymentMethodController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
-    }
-
-    @AllArgsConstructor
-    @Getter
-    @Setter
-    private class PaymentMethodTranslationResponse {
-        private PaymentMethod paymentMethod;
-
-        private PaymentMethodTranslation paymentMethodTranslation;
     }
 }

@@ -1,4 +1,4 @@
-package com.multiLanguageDB.multilanguageapi.cartProduct;
+package com.multiLanguageDB.multilanguageapi.productTranslation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,16 +12,16 @@ import java.util.UUID;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class CartProductResource {
+public class ProductTranslationResource {
 
     @JsonProperty(value = "_id")
-    UUID id;
-
-    UUID cart;
+    private final UUID id;
 
     UUID product;
 
-    String product_price;
+    String locale;
 
-    int quantity;
+    String title;
+
+    String description;
 }
