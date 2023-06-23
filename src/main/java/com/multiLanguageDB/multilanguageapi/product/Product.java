@@ -29,7 +29,7 @@ public class Product {
     private UUID id;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name="DESCRIPTION", referencedColumnName = "TEXT_ID")
+    @JoinColumn(name="TITLE", referencedColumnName = "TEXT_ID")
     private TextContent title;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

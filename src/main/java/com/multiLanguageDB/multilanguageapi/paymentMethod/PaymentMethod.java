@@ -27,7 +27,7 @@ public class PaymentMethod {
     private UUID id;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name="DESCRIPTION", referencedColumnName = "TEXT_ID")
+    @JoinColumn(name="NAME", referencedColumnName = "TEXT_ID")
     private TextContent name;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

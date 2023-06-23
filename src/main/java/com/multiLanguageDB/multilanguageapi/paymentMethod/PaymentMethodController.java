@@ -1,5 +1,7 @@
 package com.multiLanguageDB.multilanguageapi.paymentMethod;
 
+import com.multiLanguageDB.multilanguageapi.textContent.TextContent;
+import com.multiLanguageDB.multilanguageapi.textContent.TextContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +19,15 @@ public class PaymentMethodController {
 
     private final PaymentMethodService paymentMethodService;
 
+    private final TextContentService textContentService;
+
     private final PaymentMethodResourceAssembler paymentMethodResourceAssembler;
 
     @PostMapping
     public ResponseEntity<PaymentMethodResource> createPaymentMethod(@RequestBody PaymentMethodRequest paymentMethodRequest) {
         PaymentMethod paymentMethod = paymentMethodService.create(paymentMethodRequest.toPaymentMethod());
+        TextContent name = textContentService.create(paymentMethodRequest.toTextContent(paymentMethodRequest.getName()));
+        TextContent description = textContentService.create(paymentMethodRequest.toTextContent(paymentMethodRequest.getDescription()));
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

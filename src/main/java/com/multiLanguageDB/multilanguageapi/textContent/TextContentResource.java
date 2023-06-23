@@ -1,7 +1,6 @@
-package com.multiLanguageDB.multilanguageapi.paymentMethod;
+package com.multiLanguageDB.multilanguageapi.textContent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.multiLanguageDB.multilanguageapi.textContent.TextContent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -13,11 +12,11 @@ import java.util.UUID;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class PaymentMethodResource {
+public class TextContentResource {
     @JsonProperty(value = "_id")
     private final UUID id;
 
-    TextContent name;
+    String locale;
 
-    TextContent description;
+    String text;
 }
