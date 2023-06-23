@@ -22,6 +22,9 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductResource> createProduct(@RequestBody ProductRequest productRequest) {
         Product product = productService.create(productRequest.toProduct());
+        //title,locale -> Create Text Content productRequest.getLocale()
+        //desc,locale -> Create Text Content
+
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id")

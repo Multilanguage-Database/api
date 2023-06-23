@@ -21,6 +21,7 @@ public class TextContent {
     @Column(name = "TEXT_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
+
     @Column(name = "ORIG_TEXT")
     private String text;
 

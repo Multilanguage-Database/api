@@ -2,6 +2,7 @@ package com.multiLanguageDB.multilanguageapi.paymentMethod;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.cart.Cart;
+import com.multiLanguageDB.multilanguageapi.textContent.TextContent;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,11 +26,13 @@ public class PaymentMethod {
     @Column(name = "PAYMENT_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name ="NAME", nullable = false)
-    private String name;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name="DESCRIPTION", referencedColumnName = "TEXT_ID")
+    private TextContent name;
 
-    @Column(name="PAYMENT_DESCRIPTION", nullable = false)
-    private String description;
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name="DESCRIPTION", referencedColumnName = "TEXT_ID")
+    private TextContent description;
 
     @OneToMany(targetEntity = Cart.class, mappedBy = "paymentMethod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cart> carts;

@@ -11,6 +11,8 @@ import java.util.UUID;
 @Setter
 public class ProductRequest {
 
+    String locale;
+
     String title;
 
     String description;
@@ -21,8 +23,6 @@ public class ProductRequest {
 
     public Product toProduct () {
         return Product.builder()
-                .title(title)
-                .description(description)
                 .quantity(quantity)
                 .price(price)
                 .build();
@@ -31,8 +31,6 @@ public class ProductRequest {
     public Product toProduct (UUID id) {
         return Product.builder()
                 .id(id)
-                .title(title)
-                .description(description)
                 .quantity(quantity)
                 .price(price)
                 .build();

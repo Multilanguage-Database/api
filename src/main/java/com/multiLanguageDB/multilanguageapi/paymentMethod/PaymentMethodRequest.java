@@ -16,16 +16,12 @@ public class PaymentMethodRequest {
 
     public PaymentMethod toPaymentMethod() {
         return PaymentMethod.builder()
-                .name(name)
-                .description(description)
                 .build();
     }
 
     public PaymentMethod toPaymentMethod(UUID id) {
         return PaymentMethod.builder()
                 .id(id)
-                .name(name)
-                .description(description)
                 .build();
     }
 }

@@ -15,8 +15,8 @@ public class PaymentMethodResourceAssembler {
     public PaymentMethodResource toResource(PaymentMethod paymentMethod) {
         return PaymentMethodResource.builder()
                 .id(paymentMethod.getId())
-                .name(paymentMethod.getName())
-                .description(paymentMethod.getDescription())
+                .name(paymentMethod.getName().getText())
+                .description(paymentMethod.getDescription().getText())
                 .build();
     }
 
