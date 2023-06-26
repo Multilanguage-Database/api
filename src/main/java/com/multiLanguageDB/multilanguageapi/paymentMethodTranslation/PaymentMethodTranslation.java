@@ -7,8 +7,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -46,11 +46,11 @@ public class PaymentMethodTranslation {
                 this.paymentMethod.setPaymentMethodTranslationsAssoc(null);
             }
         } else {
-            Set<PaymentMethodTranslation> translations = paymentMethod.getPaymentMethodTranslationsAssoc();
+            Map<Locale, PaymentMethodTranslation> translations = paymentMethod.getPaymentMethodTranslationsAssoc();
             if(translations == null) {
-                translations = new HashSet<>();
+                translations = new HashMap<>();
             }
-            translations.add(this);
+            translations.put(locale, this);
 
             System.out.println(translations);
 

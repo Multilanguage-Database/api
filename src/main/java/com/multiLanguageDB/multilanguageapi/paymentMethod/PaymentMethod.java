@@ -2,6 +2,7 @@ package com.multiLanguageDB.multilanguageapi.paymentMethod;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiLanguageDB.multilanguageapi.cart.Cart;
+import com.multiLanguageDB.multilanguageapi.locale.Locale;
 import com.multiLanguageDB.multilanguageapi.paymentMethodTranslation.PaymentMethodTranslation;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -10,8 +11,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -31,7 +32,8 @@ public class PaymentMethod {
 
     @OneToMany(targetEntity = PaymentMethodTranslation.class, mappedBy = "paymentMethod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
-    private Set<PaymentMethodTranslation> paymentMethodTranslationsAssoc;
+    @MapKey(name = "locale")
+    private Map<Locale, PaymentMethodTranslation> paymentMethodTranslationsAssoc;
 
     @OneToMany(targetEntity = Cart.class, mappedBy = "paymentMethod", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cart> carts;
