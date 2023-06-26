@@ -1,26 +1,22 @@
-package com.multiLanguageDB.multilanguageapi.product;
+package com.multiLanguageDB.multilanguageapi.translation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
-@Setter
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class ProductResource {
+public class TranslationResource {
     @JsonProperty(value = "_id")
     private final UUID id;
 
     String locale;
 
-    String title;
-
-    String description;
-
-    int quantity;
-
-    String price;
+    String translation;
 }

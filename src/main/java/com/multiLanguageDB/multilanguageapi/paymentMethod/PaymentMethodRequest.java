@@ -19,14 +19,18 @@ public class PaymentMethodRequest {
 
     String description;
 
-    public PaymentMethod toPaymentMethod() {
+    public PaymentMethod toPaymentMethod(TextContent name, TextContent description) {
         return PaymentMethod.builder()
+                .name(name)
+                .description(description)
                 .build();
     }
 
-    public PaymentMethod toPaymentMethod(UUID id) {
+    public PaymentMethod toPaymentMethod(UUID id, TextContent name, TextContent description) {
         return PaymentMethod.builder()
                 .id(id)
+                .name(name)
+                .description(description)
                 .build();
     }
 
