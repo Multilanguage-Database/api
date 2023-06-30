@@ -23,7 +23,7 @@ public class PaymentMethodTranslation {
     @Column(name = "TRANSLATION_ID", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name="LOCALE_ID", nullable = false, length = 5, unique = true)
+    @Column(name="LOCALE_ID", nullable = false, length = 5)
     private String locale;
 
     @Column(name = "NAME_TRANSLATION", nullable = false)

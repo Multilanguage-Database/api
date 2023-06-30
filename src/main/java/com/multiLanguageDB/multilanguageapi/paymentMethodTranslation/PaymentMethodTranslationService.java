@@ -26,6 +26,10 @@ public class PaymentMethodTranslationService {
         return paymentMethodTranslationRepository.findAll();
     }
 
+    public List<PaymentMethodTranslation> findAllByLocale(String locale) {
+        return paymentMethodTranslationRepository.findAllByLocale(locale);
+    }
+
      public Optional<PaymentMethodTranslation> findIdOptional(UUID paymentId, String locale) {
         return paymentMethodTranslationRepository.findByPaymentAndlocale(paymentId, locale);
      }

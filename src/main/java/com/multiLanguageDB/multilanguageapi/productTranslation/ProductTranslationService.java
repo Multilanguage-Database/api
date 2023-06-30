@@ -25,6 +25,14 @@ public class ProductTranslationService {
         return productTranslationRepository.findAll();
     }
 
+    public List<ProductTranslation> findAllByProduct(UUID id) {
+        return productTranslationRepository.findAllByProduct(id);
+    }
+
+    public List<ProductTranslation> findAllByLocale(String locale) {
+        return productTranslationRepository.findAllByLocale(locale);
+    }
+
     public Optional<ProductTranslation> findIdOptional(UUID productId, String locale) {
         return productTranslationRepository.findByProductAndLocale(productId, locale);
     }

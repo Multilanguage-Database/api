@@ -41,6 +41,18 @@ public class ProductTranslationController {
         return ResponseEntity.ok(productTranslationResourceAssembler.toListResource(productTranslationService.findAll()));
     }
 
+    @GetMapping(path = "/product/{id}")
+    public ResponseEntity<List<ProductTranslationResource>> getProductTranslationsByProduct(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(productTranslationResourceAssembler.toListResource(productTranslationService.findAllByProduct(id)));
+    }
+
+    @GetMapping(path = "/{locale}")
+    public ResponseEntity<List<ProductTranslationResource>> getPaymentMethodTranslationByLocale(@PathVariable("locale") String locale) {
+        List<ProductTranslation> productTranslations = productTranslationService.findAllByLocale(locale);
+
+        return ResponseEntity.ok(productTranslationResourceAssembler.toListResource(productTranslations));
+    }
+
     @GetMapping(path = "/{locale}/{id}")
     public ResponseEntity<ProductTranslationResource> getProductTranslation(@PathVariable("locale") String locale, @PathVariable("id")UUID productId) {
         Optional<ProductTranslation> productTranslation = productTranslationService.findIdOptional(productId, locale);

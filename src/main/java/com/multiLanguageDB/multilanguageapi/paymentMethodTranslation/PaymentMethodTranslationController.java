@@ -39,6 +39,13 @@ public class PaymentMethodTranslationController {
         return ResponseEntity.ok(paymentMethodTranslationResourceAssembler.toListResource(paymentMethodTranslationService.findAll()));
     }
 
+    @GetMapping(path = "/{locale}")
+    public ResponseEntity<List<PaymentMethodTranslationResource>> getPaymentMethodTranslationByLocale(@PathVariable("locale") String locale) {
+        List<PaymentMethodTranslation> paymentMethodTranslations = paymentMethodTranslationService.findAllByLocale(locale);
+
+        return ResponseEntity.ok(paymentMethodTranslationResourceAssembler.toListResource(paymentMethodTranslations));
+    }
+
     @GetMapping(path = "/{locale}/{id}")
     public ResponseEntity<PaymentMethodTranslationResource> getPaymentMehtodTranslation(@PathVariable("locale") String locale, @PathVariable("id") UUID id) {
         Optional<PaymentMethodTranslation> paymentMethodTranslation = paymentMethodTranslationService.findIdOptional(id, locale);
